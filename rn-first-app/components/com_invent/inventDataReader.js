@@ -1,5 +1,7 @@
 //import invent_style from "./invent_style.js";
-const fs = require("fs");
+/*
+
+const fs = require("react-native-fs");
 
 /*
 class InventPage extends Component {
@@ -9,7 +11,7 @@ class InventPage extends Component {
         )
     }
 }
-*/
+
 
 //reads the JSON file and returns it in object form
 function readJSON() {
@@ -53,7 +55,7 @@ function findTotalAmount(target) {
         //removes key:value pair if it is past the expiration date
         if (Date.parse(expireDate) <= Date.now()) {
           console.log("Removed " + expireDate + ", " + quantity + " " + target);
-          delete expireDate;
+          delete Object.keys(item["expiration"])[i];
         }
         //otherwise proceed as normal and sum it up
         else {
@@ -72,3 +74,4 @@ function findTotalAmount(target) {
 console.log(findTotalAmount("tomato"));
 
 export default InventPage;
+*/
