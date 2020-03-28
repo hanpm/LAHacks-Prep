@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
+import {} from "./components/";
 
+/*
 export default function App() {
   const [outputText, setOutputText] = useState("Open App.js");
   return (
@@ -17,15 +19,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-<<<<<<< HEAD
-    backgroundColor: "red",
-=======
     backgroundColor: "blue",
->>>>>>> 40243140eb75e6bf2ccb26c008b3a25fd1133704
     alignItems: "center",
     justifyContent: "center"
   }
 });
+*/
 
 //LOL this was david's code roflmao
 
