@@ -3,7 +3,9 @@ import React, { Component } from "react";
 
 class InventPage extends Component {
   render() {
-    return <Text>{findTotalAmount("tomato")}</Text>;
+    return (<Text>{
+      findTotalAmount("tomato")}
+      </Text>)
   }
 }
 
@@ -16,6 +18,16 @@ function readJSON() {
 }
 */
 
+const userId = '8ba790f3-5acd-4a08-bc6a-97a36c124f29';
+const saveUserId = async userId => {
+  try {
+    await AsyncStorage.setItem('userId', userId);
+  } catch (error) {
+    // Error retrieving data
+    console.log(error.message);
+  }
+};
+
 async () => {
   try {
     await AsyncStorage.setItem("inventory", {
@@ -25,7 +37,7 @@ async () => {
           date: "amount"
         }
       },
-      tomato: {
+      "tomato": {
         unit: "whole tomatoes",
         expiration: {
           "3/29/2020": "30",
@@ -40,6 +52,7 @@ async () => {
 
 //Searches the storage object and object data of the target if it exists
 function searchStorage(target) {
+
   let storage = async () => {
     try {
       const value = await AsyncStorage.getItem("inventory");
@@ -62,11 +75,13 @@ function searchStorage(target) {
   //when no matching key is found, defaults to undefined
   console.log("Item " + target + " not found");
   return undefined;
+
 }
 
 function findTotalAmount(target) {
   console.log("\nBeginning to find total quantity amount of " + target);
   let item = searchStorage(target);
+
   //error checking, if the item actually exists in storage
   if (item != undefined) {
     let sum = 0;
