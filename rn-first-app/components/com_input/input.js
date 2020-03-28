@@ -8,22 +8,26 @@ export class InputPage extends Component{
           <View style = {styles.container}>
             <View style = {styles.textfields}>
 
-              <TextInput style = {styles.input}>
-                placeholder = "username"
-                returnKeyType = "next"
-                keyboardType = "email-address"
+              <TextInput style = {styles.input}
+                placeholder = "Item"
+                keyboardType = "default"
                 autoCapitalize = "none"
                 autoCorrect = {false}
-              </TextInput>
+              />
 
-              <TextInput style = {styles.input}>
-                placeholder = "password"
-                returnKeyType = "go"
-                onSubmitEditing = {() => this.passwordInput.focus()}
-                keyboardType = "email-address"
+              <TextInput style = {styles.input}
+                placeholder = "Units (lbs, ml, piece)"
+                keyboardType = "email-default"
                 autoCapitalize = "none"
                 autoCorrect = {false}
-              </TextInput>
+              />
+
+              <TextInput style = {styles.input}
+                placeholder = "Units (lbs, ml, piece)"
+                keyboardType = "email-default"
+                autoCapitalize = "none"
+                autoCorrect = {false}
+              />
 
               <Button 
                 title = "Add Item"
