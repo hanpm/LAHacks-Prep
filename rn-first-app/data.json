@@ -1,0 +1,17 @@
+{
+  "test-type": {
+    "unit": null,
+    "expiration": {
+      "date": "amount"
+    }
+  },
+  "tomato": {
+    "unit": "whole tomatoes",
+    "expiration": {
+      "3/29/2020": "30",
+      "4/20/2020": "15",
+      "4/13/2020": "4",
+      "null": "40"
+    }
+  }
+}
