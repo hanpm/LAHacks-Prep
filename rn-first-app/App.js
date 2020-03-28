@@ -19,6 +19,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import InventSectionList from "./components/com_invent/invent";
+import InventPage from "./components/com_invent/inventDataReader";
 
 class HomeScreen extends React.Component {
   render() {
@@ -94,7 +95,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
       }
     },
     Inventory: {
-      screen: InventoryScreen,
+      screen: InventPage,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>

@@ -8,12 +8,6 @@ import {
   Alert,
   Platform
 } from "react-native";
-import { readJSON } from "./inventDataReader";
-
-var listData = {
-  data: {},
-  title: "Ration Inventory"
-};
 /*
 listData = {
   data: {
