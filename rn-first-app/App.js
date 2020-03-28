@@ -17,11 +17,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     backgroundColor: "red",
+=======
+    backgroundColor: "blue",
+>>>>>>> 40243140eb75e6bf2ccb26c008b3a25fd1133704
     alignItems: "center",
     justifyContent: "center"
   }
 });
+
+//LOL this was david's code roflmao
 
 // import * as React from 'react';
 // import { Platform, StyleSheet, Text, View } from 'react-native';
