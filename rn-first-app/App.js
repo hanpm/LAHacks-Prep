@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export default function App() {
-  const [outputText, setOutputText] = useState('Open App.js');
+  const [outputText, setOutputText] = useState("Open App.js");
   return (
     <View style={styles.container}>
       <Text>{outputText}</Text>
-      <Button title="Change Text" onPress={() => setOutputText('the text changed!')} />
+      <Button
+        title="Change Text"
+        onPress={() => setOutputText("the text changed!")}
+      />
     </View>
   );
 }
@@ -14,11 +17,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "blue",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
+
+//LOL this was david's code roflmao
 
 // import * as React from 'react';
 // import { Platform, StyleSheet, Text, View } from 'react-native';
