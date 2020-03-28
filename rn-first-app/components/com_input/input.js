@@ -1,6 +1,6 @@
 import input_style from "./input_style.js";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useState, Component } from "react";
+import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 
 export default function App() {
   const [outputText, setOutputText] = useState("Open App.js");
