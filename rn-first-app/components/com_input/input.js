@@ -7,14 +7,30 @@ export class InputPage extends Component{
         return(
           <View style = {styles.container}>
             <View style = {styles.textfields}>
+
               <TextInput style = {styles.input}>
                 placeholder = "username"
                 returnKeyType = "next"
+                keyboardType = "email-address"
+                autoCapitalize = "none"
+                autoCorrect = {false}
+              </TextInput>
+
+              <TextInput style = {styles.input}>
+                placeholder = "password"
+                returnKeyType = "go"
                 onSubmitEditing = {() => this.passwordInput.focus()}
                 keyboardType = "email-address"
                 autoCapitalize = "none"
                 autoCorrect = {false}
               </TextInput>
+
+              <Button 
+                title = "Add Item"
+                color = "#1abc9c"
+                onPress = {() => this.props.navigation.navigate('Register')}
+              />
+
             </View>
           </View>
         )
