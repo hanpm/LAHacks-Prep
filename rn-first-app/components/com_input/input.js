@@ -1,4 +1,5 @@
 import input_style from "./input_style.js";
+import inputData from "./inputData.js";
 import React, { useState, Component } from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 
