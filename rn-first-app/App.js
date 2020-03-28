@@ -29,31 +29,31 @@ class HomeScreen extends React.Component {
   }
 }
 
-class ProfileScreen extends React.Component {
+class InputScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>ProfileScreen</Text>
+        <Text>InputScreen</Text>
       </View>
     )
   }
 }
 
-class HistoryScreen extends React.Component {
+class InventoryScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>HistoryScreen</Text>
+        <Text>InventoryScreen</Text>
       </View>
     )
   }
 }
 
-class CartScreen extends React.Component {
+class AboutScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>CartScreen</Text>
+        <Text>AboutScreen</Text>
       </View>
     )
   }
@@ -79,12 +79,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
         ),
       }
     },
-    Profile: {
-      screen: ProfileScreen,
+    Input: {
+      screen: InputScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-person'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-add'} />
           </View>
         ),
         activeColor: '#ffffff',
@@ -92,12 +92,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2163f6' },
       }
     },
-    History: {
-      screen: HistoryScreen,
+    Inventory: {
+      screen: InventoryScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-images'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-archive'} />
           </View>
         ),
         activeColor: '#ffffff',
@@ -105,12 +105,12 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#2c6d6a' },
       }
     },
-    Cart: {
-      screen: CartScreen,
+    About: {
+      screen: AboutScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{color: tintColor}]} size={25} name={'ios-cart'} />
+            <Icon style={[{color: tintColor}]} size={25} name={'ios-information-circle-outline'} />
           </View>
         ),
         activeColor: '#ffffff',
