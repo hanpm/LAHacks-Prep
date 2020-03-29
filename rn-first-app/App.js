@@ -1,5 +1,5 @@
 import React from 'react';
-import { addItem, saveItem , useAmount} from './components/com_input/inputData.js'
+import { addItem , useAmount} from './components/com_input/inputData.js'
 import {
   SafeAreaView,
   StyleSheet,
@@ -51,7 +51,7 @@ export class InputScreen extends React.Component {
     alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
     console.log("msg function worked");
     let newItem = new Item(item, "unit", amount);
-    saveItem(item, newItem);
+    addItem(item, newItem);
   }
 
   render() {

@@ -32,6 +32,7 @@ addItem = (item_type, item_unit, amount, expiration_date) => {
 
   items_list[item_type] = newItem;
   saveData("items list", items_list);
+  logData();
   
 };
 export {addItem};
@@ -43,6 +44,18 @@ useAmount = (item_type, amountUsed) => {
   items_list[item_type].content[i].amount = newAmount;
   
   saveData("items list", items_list);
+  
+};
+export {useAmount};
+
+logData = () => {
+
+  for (var key in items_list) {
+    // check if the property/key is defined in the object itself, not in parent
+    if (dictionary.hasOwnProperty(key)) {           
+        console.log(key, dictionary[key]);
+    }
+}
   
 };
 export {useAmount};
