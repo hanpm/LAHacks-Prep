@@ -70,7 +70,7 @@ export class InputScreen extends React.Component {
     alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
     console.log("msg function worked");
     let newItem = new Item(item, "unit", amount);
-    addItem(item, newItem);
+    // addItem(item, newItem);
   }
 
   render() {
