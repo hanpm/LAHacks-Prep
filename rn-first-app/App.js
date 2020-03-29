@@ -1,5 +1,5 @@
 import React from 'react';
-import { addItem , useAmount} from './components/com_input/inputData.js'
+// import { addItem , useAmount} from './components/com_input/inputData.js'
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,8 +25,27 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>HomeScreen</Text>
+      <View style={styles.homeContainer}>
+        <Text style={styles.homePageHeaderText}>Ration Bytes</Text>
+
+        <Text style={styles.homeLogo}>LOGO</Text>
+
+        <Text style={styles.homeExpireText}>Eat me! Expires soon:</Text>
+
+        <Text style={styles.homeExpireContainer}>"tomato" expires in "5" days</Text>
+
+        <Text style={styles.homeEatText}>What did you eat?</Text>
+
+        <TextInput style = {styles.homeItemContainer}
+               placeholder = "Item"
+               placeholderTextColor = "#6948f4"
+        />
+
+        <TextInput style = {styles.homeAmountContainer}
+               placeholder = "Amount"
+               placeholderTextColor = "#6948f4"
+        />
+
       </View>
     )
   }
@@ -58,7 +77,7 @@ export class InputScreen extends React.Component {
     return (
       <View style={stylesOne.container}> 
         {/* <Text style = {stylesOne.headerInputText}>Input Inventory</Text> */}
-        <TextInput style = {stylesOne.input}
+            <TextInput style = {stylesOne.input}
               //  underlineColorAndroid = "transparent"
             
                placeholder = "  Item"
@@ -80,23 +99,12 @@ export class InputScreen extends React.Component {
                }>
                <Text style = {stylesOne.submitButtonText}> Submit </Text>
             </TouchableOpacity>
-      </View>
+        </View>
     )
   }
 };
 
-// example:
-// Item(eggs, eggs, 20);
-class Item {
-  constructor(item_type, item_unit, amount) {
-    this.item_type = item_type;
-    this.item_unit = item_unit;
-    this.amount = amount;
-  }
-}
 
-
-export {newItem};
 
 class InventoryScreen extends React.Component {
   render() {
@@ -123,7 +131,62 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  
+  homeContainer: {
+    padding: 60,
+    alignItems: 'center',
+  },
+  homePageHeaderText: {
+    width: '200%',
+    fontSize: 50,
+    color: '#6948f4',
+    textAlign: 'center'
+  },
+  homeLogo:{
+    padding: 50,
+  },
+  homeExpireText:{
+    padding: 50,
+    width: '200%',
+    fontSize: 25,
+    color: '#6948f4',
+    textAlign: 'center'
+  },
+  homeExpireContainer:{
+    padding: 30,
+    width: '120%',
+    fontSize: 20,
+    color: '#6948f4',
+    textAlign: 'center',
+    borderColor: '#6948f4',
+    borderWidth: 1
+  },
+  homeEatText:{
+    padding: 40,
+    width: '200%',
+    fontSize: 25,
+    color: '#6948f4',
+    textAlign: 'center'
+  },
+  homeItemContainer:{
+    padding: 10,
+    height: 30,
+    width: '120%',
+    margin: 15,
+    color: '#6948f4',
+    borderColor: '#6948f4',
+    borderWidth: 1
+  },
+  homeAmountContainer:{
+    padding: 10,
+    height: 30,
+    width: '120%',
+    margin: 15,
+    color: '#6948f4',
+    borderColor: '#6948f4',
+    borderWidth: 1
   }
 });
 

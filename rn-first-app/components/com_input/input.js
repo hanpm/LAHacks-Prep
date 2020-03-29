@@ -1,6 +1,6 @@
 import input_style from "./input_style.js";
 import inputData from "./inputData.js";
-import { saveItem } from './inputData.js'
+// import { saveItem } from './inputData.js'
 import React, { useState, Component } from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 
@@ -22,7 +22,7 @@ export class InputScreen extends React.Component {
   message = (item, amount) => {
     alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
     let newItem = new Item(item, "unit", amount);
-    saveItem(item, newItem);
+    // saveItem(item, newItem);
   }
 
   render() {
@@ -56,18 +56,6 @@ export class InputScreen extends React.Component {
   }
 };
 
-// example:
-// Item(eggs, eggs, 20);
-class Item {
-  constructor(item_type, item_unit, amount) {
-    this.item_type = item_type;
-    this.item_unit = item_unit;
-    this.amount = amount;
-  }
-}
-
-export {newItem};
-// export default InputPage;
 
 
 const stylesOne = StyleSheet.create({

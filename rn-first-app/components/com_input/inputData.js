@@ -35,7 +35,6 @@ addItem = (item_type, item_unit, amount, expiration_date) => {
   logData();
   
 };
-export {addItem};
 
 useAmount = (item_type, amountUsed) => {
 
@@ -46,7 +45,6 @@ useAmount = (item_type, amountUsed) => {
   saveData("items list", items_list);
   
 };
-export {useAmount};
 
 logData = () => {
 
@@ -58,7 +56,6 @@ logData = () => {
 }
   
 };
-export {useAmount};
 
 saveData = async (item_name, object) => {
   try{
