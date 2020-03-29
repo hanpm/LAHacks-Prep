@@ -1,5 +1,5 @@
 import React from 'react';
-// import { addItem , useAmount} from './components/com_input/inputData.js'
+import { addItem } from './components/com_input/inputData.js';
 import {
   SafeAreaView,
   StyleSheet,
@@ -68,9 +68,8 @@ export class InputScreen extends React.Component {
 
   message = (item, amount) => {
     alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory")
-    // console.log("msg function worked");
-    // let newItem = new Item(item, "unit", amount);
-    // addItem(item, newItem);
+    console.log("msg function worked");
+    addItem(item, "filler unit", amount, "filler expiration");
   }
 
   render() {
@@ -104,7 +103,58 @@ export class InputScreen extends React.Component {
   }
 };
 
+// var items_list = {
 
+//   itemname: {
+//      unit: "unit type",
+//      content: [
+   
+//          {
+//              expiration: "date",
+//              amount: "number"
+//          }
+
+//      ]
+//  }
+// };
+
+// let addItem = (item_type, item_unit, amount, expiration_date) => {
+//       console.log("addItem function worked");
+
+//         var newItem = {
+//           unit: item_unit, //units: eggs
+//           content: [
+//               {
+//                 expiration: expiration_date,
+//                 amnt: amount //amount: 20
+//               }
+//             ]
+//         };
+
+//       items_list[item_type] = newItem;
+//       saveData("items list", items_list);
+//       logData();
+
+// };
+
+// const logData = () => {
+//   console.log("Log Data function");
+//   for (var key in items_list) {
+//     // check if the property/key is defined in the object itself, not in parent
+//     if (dictionary.hasOwnProperty(key)) {           
+//         console.log(key, dictionary[key]);
+//     }
+//   }
+// };
+
+// const saveData = async (item_name, object) => {
+//   try{
+//       console.log("save data function");
+//     await AsyncStorage.setItem(item_name, object);
+//   } catch (error) {
+//       console.log("savedata function didnt work u bitch ");
+//   }
+// };
 
 class InventoryScreen extends React.Component {
   render() {

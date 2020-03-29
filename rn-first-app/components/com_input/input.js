@@ -43,29 +43,6 @@ export class InputPage extends Component{
 
 export default InputPage;
 
-export default function App() {
-  const [outputText, setOutputText] = useState("Old Message");
-  const [value, onChangeText] = React.useState('Useless Placeholder');
-
-  return (
-    <View style={styles.container}>
-      <Text>Item: </Text>
-      <TextInput
-      style={{ height: 40, borderColor: 'gray', borderWidth: 2 }}
-      onChangeText={text => onChangeText(text)}
-      value={value}
-    />
-
-    <Button
-        title="Add"
-        onPress={() => setOutputText("the text changed!")}
-      />
-
-      <Text>{outputText}</Text>
-      
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
 
