@@ -1,8 +1,7 @@
 import React from "react";
 import {
   addItem,
-  useAmount,
-  itemExists
+  useAmount
 } from "./components/com_input/inputData.js";
 import {
   SafeAreaView,
@@ -42,7 +41,7 @@ class HomeScreen extends React.Component {
   };
 
   message = (subitem, subamount) => {
-    itemExists(subitem, subamount);
+    useAmount(subitem, subamount);
   };
 
   render() {

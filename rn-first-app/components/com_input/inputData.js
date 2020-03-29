@@ -2,20 +2,12 @@ import input from "./input.js";
 import { Text, AsyncStorage } from "react-native";
 import React, { Component } from "react";
 
-var items_list = {
-  //  itemname: {
-  //     unit: "unit type",
-  //     content: [
-  //         {
-  //             expiration: "date",
-  //             amount: "number"
-  //         }
-  //     ]
-  // }
-};
-
-export const addItem = (item_type, item_unit, amount, expiration_date) => {
+export const addItem = async (item_type, item_unit, amount, expiration_date) => {
   console.log("addItem function worked");
+
+  let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
+  let storage = JSON.parse(value);
+
   var newItem = {
     unit: item_unit, //units: eggs
     content: [
@@ -26,38 +18,17 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
     ]
   };
 
-  items_list[item_type] = newItem;
+  storage[item_type] = newItem;
 
   console.log("before save data");
-  saveData("inventory", items_list);
+
+  saveData("inventory", storage);
+
   // testData();
   testGetItem("inventory");
 };
 
-export const useAmount = (item_type, amountUsed) => {
-  try{
-    let item = fetchItem(item_type);
-
-
-    console.log("useAmount method");
-  
-    let contentItem = item['content'][0];
-  
-    contentItem.amnt -= amountUsed;
-  
-    let newAmnt = item.content[0].amnt;
-  
-    console.log("new amount: " + newAmnt);
-    // items_list[item_type].content[i].amount = newAmount;
-  
-    // saveData("collections", items_list);
-  }
-  catch(error){
-    console.log(error);
-  }
-};
-
-export const itemExists = async (key,amount) => {
+export const useAmount = async (key,amount) => {
   try {
     let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
     let storage = JSON.parse(value);
@@ -67,11 +38,18 @@ export const itemExists = async (key,amount) => {
 
     if (key in storage) {
         object = storage[key];
-        console.log(storage);
-        console.log(object);
-        console.log("object units: " + object.unit);
         alert("You have used " + key + " units of " + amount);
-        useAmount(key, amount);
+        console.log("object old amount: " + object.content[0].amnt);
+        console.log("object units: " + object.unit);
+
+        let newAmnt = object.content[0].amnt - amount;
+        object.content[0].amnt = newAmnt;
+
+        console.log("object new amount: " + object.content[0].amnt);
+
+        saveData("inventory", storage);
+        logData(storage);
+
       } 
       else {
         console.log(storage);
@@ -107,32 +85,6 @@ const saveData = async (item_name, object) => {
   }
 };
 
-const fetchItem = async key => {
-  try {
-    let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
-    let storage = JSON.parse(value);
-    let object;
-    // let list = Object.values(storage);
-    // let item = storage[target];
-
-    if (key in storage) {
-      object = storage[key];
-    //   console.log(storage);
-    //   console.log(object);
-    //   console.log("object units: " + object.unit);
-    } else {
-    //   console.log(storage);
-    //   console.log("object: " + object);
-    //   console.log("object: does not exist");
-      object = undefined;
-    }
-
-    return object;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 const testGetItem = async inventory => {
   try {
     let value = await AsyncStorage.getItem(inventory); //returns object consisting of all objects
@@ -142,24 +94,6 @@ const testGetItem = async inventory => {
 
     if (value !== null) {
       console.log(storage);
-      // for (let i = 0; i < list.length; i++) {
-      //     console.log("Loading " + list[i] + " with length: " + list.length);
-      //     let item = list[i];
-      //     let unit_type = item.unit;
-      //     for (let j = 0; j < item.content.length; j++) {
-      //         let m_content = item.m_content[j];
-      //         let data = m_content.expiration;
-      //         let amount = m_content.amnt;
-      //       }
-      //     console.log('item: ' + item.amnt);
-      // }
-      var iterationCounter = 1;
-      for (var propertyKey in storage) {
-        console.log("Running iteration " + iterationCounter);
-        console.log("propertyKey variable is: " + propertyKey);
-        console.log(storage[propertyKey]);
-        iterationCounter = iterationCounter + 1;
-      }
     }
   } catch (error) {
     console.log(error);
