@@ -71,16 +71,27 @@ const logData = (list) => {
     }
 };
 
-const testData = async (item_name) => {
-    let value = await AsyncStorage.getItem(item_name);
-    let storage = JSON.parse(value);
+// const testData = async (item_name) => {
+//     let value = await AsyncStorage.getItem(item_name);
+//     let storage = JSON.parse(value);
 
-    if(value == null){
-        console.log("fuck this");
-    }
-    else{
-        console.log("idk");
-    }
+//     if(value == null){
+//         console.log("fuck this");
+//     }
+//     else{
+//         console.log("idk");
+//     }
     
-    logData(storage);
-}
+//     logData(storage);
+// };
+
+const testData = async () =>{
+    AsyncStorage.getAllKeys().then((keys) => {
+      return AsyncStorage.multiGet(keys)
+        .then((result) => {
+          console.log(result);
+        }).catch((e) =>{
+          console.log(e);
+        });
+    });
+  }
