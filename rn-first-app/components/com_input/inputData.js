@@ -35,7 +35,7 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
     console.log("before save data");
     saveData("inventory", items_list);
     // testData();
-     testDataAgain("inventory");
+    testGetItem("inventory");
 };
 
 
@@ -73,21 +73,28 @@ const logData = (list) => {
     }
 };
 
-const testDataAgain = async (item_name) => {
+const testGetItem = async (item_name) => {
 
     try {
-        const value = await AsyncStorage.getItem(item_name);
+
+        let value = await AsyncStorage.getItem(item_name);
+        let storage = JSON.parse(value);
+        let list = Object.values(storage);
+
         if (value !== null) {
-            // We have data!!
             console.log(JSON.parse(value));
+            for (let i = 0; i < list.length; i++) {
+                console.log("Loading " + list[i]);
+                let item = list[i];
+            }
         }
     } catch (error) {
-        // Error retrieving data
+        console.log(error);
     }
 
 };
 
-const testData = async () =>{
+const printAllKeys = async () =>{
     AsyncStorage.getAllKeys().then((keys) => {
       return AsyncStorage.multiGet(keys)
         .then((result) => {
