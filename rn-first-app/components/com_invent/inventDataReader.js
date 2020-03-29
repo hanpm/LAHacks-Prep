@@ -1,23 +1,7 @@
-import { Text, AsyncStorage } from "react-native";
 import React, { Component } from "react";
+import { AsyncStorage } from "react-native";
 
-/*
-class InventPage extends Component {
-  render() {
-    return <Text>findTotalAmount(target)</Text>;
-  }
-}
-*/
-
-/*
-//reads the JSON file and returns it in object form
-function readJSON() {
-  console.log("Reading data.json");
-  let raw = fs.readFileSync(__dirname + "/../../data.json");
-  return JSON.parse(raw);
-}
-*/
-
+//function used to load values into storage for testing
 function loadTest() {
   let test = {
     tomato: {
@@ -36,6 +20,23 @@ function loadTest() {
           quantity: "4"
         }
       ]
+    },
+    cereal: {
+      unit: "apples",
+      content: [
+        {
+          expiration: "8/07/2025",
+          quantity: "124"
+        },
+        {
+          expiration: "12/14/2027",
+          quantity: "54"
+        },
+        {
+          expiration: "1/23/2023",
+          quantity: "12"
+        }
+      ]
     }
   };
 
@@ -48,65 +49,48 @@ function loadTest() {
   console.log("Test values loaded");
 }
 
-//Searches the storage object and object data of the target if it exists
-function searchStorage(target) {
-  console.log("Searching data for " + target);
-  target = target.toLowerCase().trim();
-
-  access = async () => {
-    try {
-      console.log("Asynchronously accessing storage");
-      let value = await AsyncStorage.getItem("inventory");
-      let storage = JSON.parse(value);
-
-      console.log(storage);
-      console.log(Object.keys(storage));
-      console.log(Object.values(storage));
-
-      let item = storage[target];
-      if (item != undefined) {
-        console.log("Found");
-        console.log(item);
-        return item;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    //when no matching key is found, defaults to undefined
-    console.log("Item " + target + " not found");
-    return undefined;
-  };
-
-  return access();
-}
-
-export async function findTotalAmount(target) {
-  console.log("\nBeginning to find total quantity amount of " + target);
-  let item = await searchStorage(target);
-  //error checking, if the item actually exists in storage
-  if (item != undefined && item != null) {
-    let sum = 0;
-    //check if there's actual values stored
-    if (item.content != undefined) {
-      //loop through all values for typical sum finding
-      for (i = 0; i < item.content.length; i++) {
-        let expireDate = item.content[i].expiration;
-        let amount = item.content[i].quantity;
-        console.log(i + " | " + amount);
-        sum += parseInt(amount);
-      }
-      console.log("Total amount of target " + target + " is " + sum);
-      console.log(sum);
-      return sum;
-    } else {
-      console.log("Expiration values undefined");
+//for storage json format
+export function findTotalx(type) {
+  let sum = 0;
+  if (type.content != undefined && Object.values(type.content) != undefined) {
+    let contentDiv = Object.values(type.content);
+    for (let i = 0; i < contentDiv.length; i++) {
+      sum += contentDiv[i].expiration;
     }
   }
-  //default to 0 when it doesn't exist
-  console.log("No amounts of " + target + " exist");
-  return 0;
+  return sum;
 }
 
+//for section list data format
+export function findTotaly(root) {
+  console.log("Beginnning to sum up values");
+  let sum = 0;
+  if (root.data != undefined) {
+    let info = root.data;
+    console.log("info");
+    console.log(info);
+    for (i = 0; i < info.length; i++) {
+      sum += parseInt(info[i].quantity);
+    }
+  }
+  return sum;
+}
+
+//for section list data format
+export function findTotalr(root) {
+  console.log("Beginnning to sum up values");
+  let sum = 0;
+  if (root.length >= 0) {
+    console.log("info");
+    console.log(root);
+    for (i = 0; i < root.length; i++) {
+      sum += parseInt(root[i].quantity);
+    }
+  }
+  return sum;
+}
+
+//takes all the values from storage and stores it into a sectionlist friendly data structure
 export function storeAll() {
   loadTest();
 
@@ -118,7 +102,8 @@ export function storeAll() {
         console.log("Asynchronously accessing storage");
         let value = await AsyncStorage.getItem("inventory");
         let storage = JSON.parse(value);
-        for (let i = 0; i < Object.values(storage).length; i++) {
+        let i = 0;
+        for (i = 0; i < Object.values(storage).length; i++) {
           console.log("Loading " + Object.keys(storage)[i]);
           let item = Object.values(storage)[i];
           let number = 0;
@@ -135,15 +120,15 @@ export function storeAll() {
             };
             data.push(slot);
           }
+
+          //console.log(findTotaly(data));
           let slot2 = {
             data: data,
             title: Object.keys(storage)[i]
           };
+          //console.log("sum is");
+          //console.log(findTotaly(slot2));
           rationData.push(slot2);
-          /*data.push({
-            data: Object.values(storage)[i],
-            title: Object.keys(storage)[i]
-          });*/
         }
       } catch (error) {
         console.log(error);
@@ -157,7 +142,3 @@ export function storeAll() {
   let done = finish();
   return done;
 }
-
-//console.log(findTotalAmount("tomato"));
-
-//export default InventPage;

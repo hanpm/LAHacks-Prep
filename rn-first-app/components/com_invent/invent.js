@@ -1,18 +1,8 @@
 import React, { Component } from "react";
-import {
-  AppRegistry,
-  SectionList,
-  StyleSheet,
-  Text,
-  View,
-  Alert,
-  Platform
-} from "react-native";
-//import { listData } from "./inventFileData";
-import { storeAll } from "./inventDataReader";
+import { SectionList, Text, View, Platform } from "react-native";
+import { storeAll, findTotaly, findTotalr } from "./inventDataReader";
 
-var listData = [];
-
+//subbars under the headers
 class SectionListItem extends Component {
   render() {
     return (
@@ -32,7 +22,7 @@ class SectionListItem extends Component {
             marginRight: 10
           }}
         >
-          {this.props.item.expiration}
+          Expires on {this.props.item.expiration}!
         </Text>
         <Text
           style={{
@@ -42,7 +32,7 @@ class SectionListItem extends Component {
             color: "rgb(173, 252, 250)"
           }}
         >
-          {this.props.item.quantity}
+          {this.props.item.quantity} {this.props.item.unit}
         </Text>
         <View
           style={{
@@ -57,6 +47,8 @@ class SectionListItem extends Component {
     );
   }
 }
+
+//big headers
 class SectionHeader extends Component {
   render() {
     return (
@@ -110,12 +102,7 @@ export default class BasicSectionList extends Component {
       console.log(this.state.data);
     });
   }
-  /*
-  componentDidMount() {
-    listData = storeAll();
-    console.log(listData);
-  }
-*/
+
   render() {
     if (this.state.loading === "initial") {
       console.log("Initializing");
