@@ -95,7 +95,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
       }
     },
     Inventory: {
-      screen: InventPage,
+      screen: InventSectionList,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>

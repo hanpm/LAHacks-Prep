@@ -8,20 +8,9 @@ import {
   Alert,
   Platform
 } from "react-native";
-/*
-listData = {
-  data: {
-    {
-      itemName: "Tomato",
-      unit: "oz",
-      expiration: {
+import { storeAll } from "./inventDataReader";
 
-      }
-    }
-  },
-  title: "Ration Inventory"
-}
-*/
+var listData;
 
 class SectionListItem extends Component {
   render() {
@@ -42,8 +31,7 @@ class SectionListItem extends Component {
             marginRight: 10
           }}
         >
-          {" "}
-          {this.props.item.name}
+          {this.props.item.content.expiration}
         </Text>
         <Text
           style={{
@@ -52,8 +40,7 @@ class SectionListItem extends Component {
             marginRight: 10
           }}
         >
-          {" "}
-          {this.props.item.description}
+          {this.props.item.content.quantity}
         </Text>
       </View>
     );
@@ -86,9 +73,16 @@ class SectionHeader extends Component {
 }
 
 export default class InventSectionList extends Component {
+  async componentDidMount() {
+    listData = await storeAll();
+    console.log("List data loaded");
+    console.log(listData);
+  }
+
   render() {
+    console.log("too late");
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, marginTop: Platform.OS === "ios" ? 34 : 0 }}>
         <SectionList
           renderItem={({ item, index }) => {
             return (
@@ -98,9 +92,10 @@ export default class InventSectionList extends Component {
           renderSectionHeader={({ section }) => {
             return <SectionHeader section={section} />;
           }}
-          keyExtractor={(item, index) => item.name}
+          sections={listData}
+          keyExtractor={(item, index) => item.unit}
         >
-          onRefresh = {{}}
+          onRefresh = {(listData = storeAll())}
         </SectionList>
       </View>
     );
