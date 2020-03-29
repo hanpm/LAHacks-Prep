@@ -65,7 +65,7 @@ const logData = () => {
     console.log("big brain");
     try{
         console.log("save data function");
-      await AsyncStorage.setItem(item_name, object);
+      await AsyncStorage.setItem(item_name, JSON.stringify(object));
     } catch (error) {
         console.log("savedata function didnt work u bitch ");
     }
