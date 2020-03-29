@@ -41,12 +41,22 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
 
 export const useAmount = (item_type, amountUsed) => {
 
-    var newAmount = item_type.content[i].amount - amountUsed;
+    let item = fetchItem(item_type);
+
+    // item.content[i].amount -= amountUsed;
   
-    items_list[item_type].content[i].amount = newAmount;
+    // items_list[item_type].content[i].amount = newAmount;
     
-    saveData("items list", items_list);
+    // saveData("collections", items_list);
     
+  };
+
+  export const itemExists = (item_type, amountUsed) => {
+    let item = fetchItem(item_type);
+    if(item != undefined){
+        return true;
+    }
+    else return false;
   };
   
 
@@ -73,19 +83,48 @@ const logData = (list) => {
     }
 };
 
-const testGetItem = async (item_name) => {
+const fetchItem = async (key) => {
+    try{
+        let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
+        let storage = JSON.parse(value);
+        let object = storage[key];
+        // let list = Object.values(storage);
+        // let item = storage[target];
+        console.log(storage);
+        console.log(object.amnt);
+        return object;
+    }catch(e){
+        console.log(e);
+    }
+}
+
+const testGetItem = async (inventory) => {
 
     try {
-
-        let value = await AsyncStorage.getItem(item_name);
+        let value = await AsyncStorage.getItem(inventory); //returns object consisting of all objects
         let storage = JSON.parse(value);
         let list = Object.values(storage);
+        let allKeys = list.keys();
 
         if (value !== null) {
-            console.log(JSON.parse(value));
-            for (let i = 0; i < list.length; i++) {
-                console.log("Loading " + list[i]);
-                let item = list[i];
+            console.log(storage);
+            // for (let i = 0; i < list.length; i++) {
+            //     console.log("Loading " + list[i] + " with length: " + list.length);
+            //     let item = list[i];
+            //     let unit_type = item.unit;
+            //     for (let j = 0; j < item.content.length; j++) {
+            //         let m_content = item.m_content[j];
+            //         let data = m_content.expiration;
+            //         let amount = m_content.amnt;
+            //       }
+            //     console.log('item: ' + item.amnt);
+            // }
+            var iterationCounter =1;
+            for (var propertyKey in storage) {
+                console.log("Running iteration " + iterationCounter +
+                    "\n\t propertyKey variable is: " + propertyKey +
+                    "\n\t the associated value is: " + storage[propertyKey] );
+                iterationCounter = iterationCounter + 1;
             }
         }
     } catch (error) {
