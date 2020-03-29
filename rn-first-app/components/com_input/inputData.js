@@ -52,16 +52,25 @@ export const useAmount = (item_type, amountUsed) => {
     
   };
 
-  export const itemExists = (item_type) => {
-    let item = fetchItem(item_type);
-    if(item != null){
-        console.log("item exists");
-        return true;
+  export const itemExists = async (key) => {
+
+    try{
+        let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
+        let storage = JSON.parse(value);
+        let object;
+        // let list = Object.values(storage);
+        // let item = storage[target];
+
+        if(key in storage){
+            return true;
+        }
+        else{
+           return false;
+        }
+    }catch(e){
+        console.log(e);
     }
-    else {
-        console.log("item does not exist");
-        return false;
-    }
+
   };
   
 
@@ -98,14 +107,16 @@ const fetchItem = async (key) => {
 
         if(key in storage){
             object = storage[key];
+            console.log(storage);
+            console.log(object);
+            console.log("object units: " + object.unit);
         }
         else{
-            object = null;
+            console.log(storage);
+            console.log("object: " + object);
+            console.log("object: does not exist");
+            object = undefined;
         }
-
-        console.log(storage);
-        console.log("object: " + object);
-        console.log("object units: " + object.unit);
 
         return object;
     }catch(e){
@@ -136,9 +147,9 @@ const testGetItem = async (inventory) => {
             // }
             var iterationCounter =1;
             for (var propertyKey in storage) {
-                console.log("Running iteration " + iterationCounter +
-                    "\n\t propertyKey variable is: " + propertyKey +
-                    "\n\t the associated value is: " + storage[propertyKey] );
+                console.log("Running iteration " + iterationCounter);
+                console.log("propertyKey variable is: " + propertyKey);
+                console.log(storage[propertyKey]);
                 iterationCounter = iterationCounter + 1;
             }
         }
