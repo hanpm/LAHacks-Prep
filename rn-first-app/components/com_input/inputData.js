@@ -62,11 +62,13 @@ export const useAmount = (item_type, amountUsed) => {
         // let item = storage[target];
 
         if(key in storage){
+            console.log("")
             return true;
         }
         else{
            return false;
         }
+
     }catch(e){
         console.log(e);
     }
