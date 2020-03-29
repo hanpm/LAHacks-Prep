@@ -5,7 +5,8 @@ import {
   ScrollView,
   View,
   Text,
-  StatusBar
+  StatusBar,
+  AppRegistry
 } from "react-native";
 
 import {
@@ -19,33 +20,15 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import InventSectionList from "./components/com_invent/invent";
+import InputScreen from "./components/com_input/input";
 import InventPage from "./components/com_invent/inventDataReader";
-
-class HomeScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>HomeScreen</Text>
-      </View>
-    );
-  }
-}
+import HomeScreen from "./components/com_home/home";
 
 class InventoryScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>InventoryScreen</Text>
-      </View>
-    );
-  }
-}
-
-class InputScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>InputScreen</Text>
       </View>
     );
   }
