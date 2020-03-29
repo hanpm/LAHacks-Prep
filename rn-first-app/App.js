@@ -1,5 +1,5 @@
 import React from 'react';
-import { saveItem } from './components/com_input/inputData.js'
+import { addItem, saveItem , useAmount} from './components/com_input/inputData.js'
 import {
   SafeAreaView,
   StyleSheet,
@@ -94,6 +94,7 @@ class Item {
     this.amount = amount;
   }
 }
+
 
 export {newItem};
 

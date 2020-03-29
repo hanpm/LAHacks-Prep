@@ -3,21 +3,51 @@ import {newItem} from "./input.js";
 import { Text, AsyncStorage } from "react-native";
 import React, { Component } from "react";
 
-let testArr = {
+var items_list = {
 
-  "tomato": {
-    unit: "whole tomatoes",
+  itemname: {
+    unit: "unit type",
+    content: [
+      
+      {
+        expiration: "date",
+        amount: "number"
+      }
 
-    expiration: {
-      "date1": "30",
-      "Date2": "21"
-    }
-
+    ]
   }
 };
 
+addItem = (item_type, item_unit, amount, expiration_date) => {
 
-saveItem = async (item_name, object) => {
+  var newItem = {
+    unit: item_unit, //units: eggs
+    content: [
+      {
+        expiration: expiration_date,
+        amnt: amount //amount: 20
+      }
+    ]
+  };
+
+  items_list[item_type] = newItem;
+  saveData("items list", items_list);
+  
+};
+export {addItem};
+
+useAmount = (item_type, amountUsed) => {
+
+  var newAmount = item_type.content[i].amount - amountUsed;
+
+  items_list[item_type].content[i].amount = newAmount;
+  
+  saveData("items list", items_list);
+  
+};
+export {useAmount};
+
+saveData = async (item_name, object) => {
   try{
     await AsyncStorage.setItem(item_name, object);
   } catch (error) {
