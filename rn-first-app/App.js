@@ -42,12 +42,7 @@ class HomeScreen extends React.Component {
   };
 
   message = (subitem, subamount) => {
-    if (itemExists(subitem)) {
-      alert("You have used " + subamount + " units of " + subitem);
-      useAmount(subitem, subamount);
-    } else {
-      alert(subitem + " does not exist in the inventory.");
-    }
+    itemExists(subitem, subamount);
   };
 
   render() {

@@ -35,39 +35,51 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
 };
 
 export const useAmount = (item_type, amountUsed) => {
-  let item = fetchItem(item_type);
+  try{
+    let item = fetchItem(item_type);
 
-  // item.content[0].amnt -= amountUsed;
 
-  console.log("well");
-  // items_list[item_type].content[i].amount = newAmount;
-
-  // saveData("collections", items_list);
+    console.log("useAmount method");
+  
+    let contentItem = item['content'][0];
+  
+    contentItem.amnt -= amountUsed;
+  
+    let newAmnt = item.content[0].amnt;
+  
+    console.log("new amount: " + newAmnt);
+    // items_list[item_type].content[i].amount = newAmount;
+  
+    // saveData("collections", items_list);
+  }
+  catch(error){
+    console.log(error);
+  }
 };
 
-export const itemExists = async (key) => {
+export const itemExists = async (key,amount) => {
   try {
     let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
     let storage = JSON.parse(value);
     console.log("checking exists");
 
     let object;
-    // let list = Object.values(storage);
-    // let item = storage[target];
 
-    key = String(key)
-      .toLowerCase()
-      .trim();
-    console.log(key);
-    console.log(storage);
-    console.log(Object.keys(storage));
-    let existence = false;
-    for (keys in Object.keys(storage)) {
-      if (keys == key) {
-        existence = true;
+    if (key in storage) {
+        object = storage[key];
+        console.log(storage);
+        console.log(object);
+        console.log("object units: " + object.unit);
+        alert("You have used " + key + " units of " + amount);
+        useAmount(key, amount);
+      } 
+      else {
+        console.log(storage);
+        console.log("object: " + object);
+        console.log("object: does not exist");
+        alert(key + " does not exist in the inventory.");
       }
-    }
-    return existence;
+   
   } catch (e) {
     console.log(e);
   }
@@ -105,13 +117,13 @@ const fetchItem = async key => {
 
     if (key in storage) {
       object = storage[key];
-      console.log(storage);
-      console.log(object);
-      console.log("object units: " + object.unit);
+    //   console.log(storage);
+    //   console.log(object);
+    //   console.log("object units: " + object.unit);
     } else {
-      console.log(storage);
-      console.log("object: " + object);
-      console.log("object: does not exist");
+    //   console.log(storage);
+    //   console.log("object: " + object);
+    //   console.log("object: does not exist");
       object = undefined;
     }
 
