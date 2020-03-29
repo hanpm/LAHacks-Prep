@@ -1,6 +1,14 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native";
+
+import { addItem, useAmount } from "./components/com_input/inputData.js";
+
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity
+} from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
@@ -8,6 +16,7 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import BasicSectionList from "./components/com_invent/invent";
 import HomeScreen from "./components/com_home/home";
 import AboutScreen from "./components/com_about/about";
+import { testSort } from "./components/com_input/inputSort";
 
 // adding the input and alert into InputScreen
 class InputScreen extends React.Component {
@@ -18,9 +27,11 @@ class InputScreen extends React.Component {
     day: "",
     year: ""
   };
+
   handleItem = text => {
     this.setState({ item: text });
   };
+
   handleAmount = text => {
     this.setState({ amount: text });
   };
@@ -50,13 +61,15 @@ class InputScreen extends React.Component {
         "/" +
         year
     );
+    let date = month + "/" + day + "/" + year;
+    addItem(item, "units", amount, date);
+    testSort();
   };
 
   render() {
     return (
       <View style={stylesOne.container}>
-        <Text style={stylesOne.headerTitleText}>Food Input</Text>
-        {/* <Text style = {stylesOne.headerInputText}>Input Inventory</Text> */}
+        <Text style={stylesOne.headerTitleText}>Inventory Input</Text>
         <TextInput
           style={stylesOne.input}
           placeholder="  Item"
@@ -122,6 +135,107 @@ class InputScreen extends React.Component {
     );
   }
 }
+
+// this is the temporary styling
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
+
+const stylesHome = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  homeContainer: {
+    padding: 60,
+    alignItems: "center"
+  },
+
+  homePageHeaderText: {
+    // width: '200%',
+    marginTop: -35,
+    // borderColor: 'blue',
+    // borderWidth: 1,
+    fontSize: 30,
+    color: "#6948f4",
+    textAlign: "center",
+    fontWeight: "bold"
+  },
+  homeLogo: {
+    // padding: 50,
+  },
+  homeExpireText: {
+    // padding: 50,
+    marginBottom: 10,
+    width: "200%",
+    fontSize: 20,
+    color: "#6948f4",
+    textAlign: "center",
+    fontWeight: "bold"
+    // borderColor: 'blue',
+    // borderWidth: 1,
+  },
+  homeExpireContainer: {
+    padding: 7,
+    marginBottom: 5,
+    width: "120%",
+    fontSize: 20,
+    color: "#6948f4",
+    textAlign: "center",
+    borderColor: "#6948f4",
+    borderWidth: 1
+  },
+  homeEatText: {
+    // padding: 40,
+    marginTop: 10,
+    marginBottom: -8,
+    width: "200%",
+    fontSize: 25,
+    color: "#6948f4",
+    textAlign: "center",
+    fontWeight: "bold"
+    // borderColor: 'blue',
+    // borderWidth: 1,
+  },
+  homeItemContainer: {
+    // padding: 10,
+    // marginLeft: 5,
+    height: 30,
+    width: "120%",
+    margin: 15,
+    color: "#6948f4",
+    borderColor: "#6948f4",
+    borderWidth: 1
+  },
+  homeAmountContainer: {
+    // padding: 10,
+    height: 30,
+    width: "120%",
+    margin: 15,
+    color: "#6948f4",
+    borderColor: "#6948f4",
+    borderWidth: 1
+  },
+  submitButton: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#6948f4",
+    marginTop: 10,
+    height: 40,
+    width: 300,
+    borderRadius: 20
+  },
+  submitButtonText: {
+    color: "white",
+    textAlign: "center"
+  }
+});
 
 // this is the styling for the input page
 const stylesOne = StyleSheet.create({
@@ -276,5 +390,4 @@ const TabNavigator = createMaterialBottomTabNavigator(
     barStyle: { backgroundColor: "#6948f4" }
   }
 );
-
 export default createAppContainer(TabNavigator);

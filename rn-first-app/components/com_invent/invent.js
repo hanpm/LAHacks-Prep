@@ -81,7 +81,7 @@ export default class BasicSectionList extends Component {
       data: ""
     };
   }
-
+  
   loadData() {
     var promise = new Promise((resolve, reject) => {
       setTimeout(() => {

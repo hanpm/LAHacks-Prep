@@ -1,91 +1,81 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet
-} from "react-native";
+import input_style from "./input_style.js";
+import React, { Component } from "react";
+import { StyleSheet, TextInput, View, Button } from "react-native";
 
-export default class InputScreen extends React.Component {
-  state = {
-    item: "",
-    amount: ""
-  };
-  handleItem = text => {
-    this.setState({ item: text });
-  };
-  handleAmount = text => {
-    this.setState({ amount: text });
-  };
-  message = (item, pass) => {
-    alert("item: " + item + "," + " amount: " + pass);
-  };
+export class InputPage extends Component {
   render() {
     return (
-      <View style={stylesOne.container}>
-        {/* <Text style = {stylesOne.headerInputText}>Input Inventory</Text> */}
-        <TextInput
-          style={stylesOne.input}
-          //  underlineColorAndroid = "transparent"
+      <View style={styles.container}>
+        <View style={styles.textfields}>
+          <TextInput
+            style={styles.input}
+            placeholder="Item"
+            keyboardType="default"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
 
-          placeholder="  Item"
-          placeholderTextColor="#2163f6"
-          autoCapitalize="none"
-          onChangeText={this.handleItem}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Units (lbs, ml, piece)"
+            keyboardType="email-default"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
 
-        <TextInput
-          style={stylesOne.input}
-          //  underlineColorAndroid = "transparent"
-          placeholder="  Amount"
-          placeholderTextColor="#2163f6"
-          autoCapitalize="none"
-          onChangeText={this.handleAmount}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Units (lbs, ml, piece)"
+            keyboardType="email-default"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
 
-        <TouchableOpacity
-          style={stylesOne.submitButton}
-          onPress={() => this.message(this.state.item, this.state.amount)}
-        >
-          <Text style={stylesOne.submitButtonText}> Submit </Text>
-        </TouchableOpacity>
+          <Button
+            title="Add Item"
+            color="#1abc9c"
+            onPress={() => this.props.navigation.navigate("Register")}
+          />
+        </View>
       </View>
     );
   }
 }
-// export InputScreen
-// took this line out and it works without it so wackkk
 
-// this is the styling for the input page
-const stylesOne = StyleSheet.create({
+export default InputPage;
+
+const styles = StyleSheet.create({
   container: {
-    marginTop: 250,
-    display: "flex",
-    alignContent: "center",
+    flex: 1,
+    padding: 20,
+    backgroundColor: "blue",
+    alignItems: "stretch",
     justifyContent: "center"
-    // borderColor: 'blue',
-    // borderWidth: 1,
   },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: "#2163f6",
-    borderWidth: 1
-  },
-  submitButton: {
-    backgroundColor: "#2163f6",
-    padding: 10,
-    margin: 15,
-    height: 40
-  },
-  submitButtonText: {
-    color: "white"
-  }
 
-  //trying to add header --> ignore for now
-  // headerInputText: {
-  //   color: 'black',
-  //   fontSize: 20,
-  // }
+  input: {
+    paddingLeft: 20,
+    borderRadius: 50,
+    fontSize: 20,
+    height: 50,
+    fontSize: 25,
+    backgroundColor: "white",
+    borderWidth: 1,
+    marginBottom: 20,
+    color: "#34495e"
+  },
+
+  buttoncontainer: {
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: "#1abc9c",
+    paddingVertical: 10,
+    justifyContent: "center"
+  },
+
+  buttontext: {
+    textAlign: "center",
+    color: "#ecf0f1",
+    fontSize: 20
+  }
 });

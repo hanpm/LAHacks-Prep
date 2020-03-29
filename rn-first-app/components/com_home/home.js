@@ -8,6 +8,8 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import { useAmount } from "../com_input/inputData";
+
 export default class HomeScreen extends Component {
   state = {
     subitem: "",
@@ -22,7 +24,7 @@ export default class HomeScreen extends Component {
   };
 
   message = (subitem, subamount) => {
-    alert("current item: " + subitem + "," + " current amount: " + subamount);
+    useAmount(subitem, subamount);
   };
 
   render() {
