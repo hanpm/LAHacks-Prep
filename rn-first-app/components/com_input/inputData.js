@@ -4,20 +4,21 @@ import React, { Component } from "react";
 
 var items_list = {
 
-     itemname: {
-        unit: "unit type",
-        content: [
+    //  itemname: {
+    //     unit: "unit type",
+    //     content: [
       
-            {
-                expiration: "date",
-                amount: "number"
-            }
+    //         {
+    //             expiration: "date",
+    //             amount: "number"
+    //         }
 
-        ]
-    }
+    //     ]
+    // }
 };
 
 export const addItem = (item_type, item_unit, amount, expiration_date) => {
+
     console.log("addItem function worked");
     var newItem = {
         unit: item_unit, //units: eggs
@@ -32,20 +33,21 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
     items_list[item_type] = newItem;
 
     console.log("before save data");
-    saveData("items list", items_list);
-    testData("items_list");
+    saveData("inventory", items_list);
+    // testData();
+     testDataAgain("inventory");
 };
 
 
-// const useAmount = (item_type, amountUsed) => {
+export const useAmount = (item_type, amountUsed) => {
 
-//     var newAmount = item_type.content[i].amount - amountUsed;
+    var newAmount = item_type.content[i].amount - amountUsed;
   
-//     items_list[item_type].content[i].amount = newAmount;
+    items_list[item_type].content[i].amount = newAmount;
     
-//     saveData("items list", items_list);
+    saveData("items list", items_list);
     
-//   };
+  };
   
 
 const logData = (list) => {
@@ -71,19 +73,19 @@ const logData = (list) => {
     }
 };
 
-// const testData = async (item_name) => {
-//     let value = await AsyncStorage.getItem(item_name);
-//     let storage = JSON.parse(value);
+const testDataAgain = async (item_name) => {
 
-//     if(value == null){
-//         console.log("fuck this");
-//     }
-//     else{
-//         console.log("idk");
-//     }
-    
-//     logData(storage);
-// };
+    try {
+        const value = await AsyncStorage.getItem(item_name);
+        if (value !== null) {
+            // We have data!!
+            console.log(JSON.parse(value));
+        }
+    } catch (error) {
+        // Error retrieving data
+    }
+
+};
 
 const testData = async () =>{
     AsyncStorage.getAllKeys().then((keys) => {
@@ -94,4 +96,5 @@ const testData = async () =>{
           console.log(e);
         });
     });
-  }
+    // AsyncStorage.clear();
+  };

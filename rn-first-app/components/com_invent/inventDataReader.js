@@ -116,8 +116,10 @@
 //     store = async () => {
 //       try {
 //         console.log("Asynchronously accessing storage");
+
 //         let value = await AsyncStorage.getItem("inventory");
 //         let storage = JSON.parse(value);
+
 //         for (let i = 0; i < Object.values(storage).length; i++) {
 //           console.log("Loading " + Object.keys(storage)[i]);
 //           let item = Object.values(storage)[i];
