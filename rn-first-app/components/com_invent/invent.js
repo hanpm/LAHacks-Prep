@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SectionList, Text, View, Platform } from "react-native";
+import { SectionList, Text, View, Platform, AsyncStorage } from "react-native";
 import { storeAll, findTotaly, findTotalr } from "./inventDataReader";
 
 //subbars under the headers

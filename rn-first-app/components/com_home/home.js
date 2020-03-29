@@ -24,6 +24,7 @@ export default class HomeScreen extends Component {
   };
 
   message = (subitem, subamount) => {
+    console.log("BUTTON HAS BEEN PRESSED");
     useAmount(subitem, subamount);
   };
 
@@ -44,7 +45,7 @@ export default class HomeScreen extends Component {
         <Text style={stylesHome.homeExpireText}>Expires soon</Text>
 
         <Text style={stylesHome.homeExpireContainer}>
-          "tomato" expires in "5" days
+          Tomato expires in 1 day
         </Text>
 
         <Text style={stylesHome.homeEatText}>What did you eat?</Text>

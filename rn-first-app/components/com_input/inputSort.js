@@ -29,7 +29,7 @@ export function testSort() {
   console.log(result);
 }
 
-export function sortContent(content) {
+export default function sortContent(content) {
   let newData = [];
   for (values in content) {
     newData.push(content[values]);

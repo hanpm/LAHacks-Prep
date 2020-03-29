@@ -4,11 +4,11 @@ import { AsyncStorage } from "react-native";
 //function used to load values into storage for testing
 function loadTest() {
   let test = {
-    tomato: {
-      unit: "whole tomatoes",
+    Tomato: {
+      unit: "tomatoes",
       content: [
         {
-          expiration: "3/29/2020",
+          expiration: "3/30/2020",
           quantity: "30"
         },
         {
@@ -21,7 +21,7 @@ function loadTest() {
         }
       ]
     },
-    cereal: {
+    Apples: {
       unit: "apples",
       content: [
         {
@@ -55,7 +55,8 @@ export function findTotalx(type) {
   if (type.content != undefined && Object.values(type.content) != undefined) {
     let contentDiv = Object.values(type.content);
     for (let i = 0; i < contentDiv.length; i++) {
-      sum += contentDiv[i].expiration;
+      console.log(contentDiv[i].quantity);
+      sum += parseInt(contentDiv[i].quantity);
     }
   }
   return sum;

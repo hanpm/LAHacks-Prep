@@ -2,6 +2,7 @@ import input from "./input.js";
 import { Text, AsyncStorage } from "react-native";
 import React, { Component } from "react";
 import contentSort from "./inputSort";
+import { findTotalx } from "../com_invent/inventDataReader";
 
 export const addItem = async (
   item_type,
@@ -19,7 +20,7 @@ export const addItem = async (
 
     var contentItem = {
       expiration: expiration_date,
-      amnt: amount
+      quantity: amount
     };
 
     obj.content.push(contentItem);
@@ -29,7 +30,7 @@ export const addItem = async (
       content: [
         {
           expiration: expiration_date,
-          amnt: amount //amount: 20
+          quantity: amount //amount: 20
         }
       ]
     };
@@ -53,39 +54,50 @@ export const useAmount = async (key, amount) => {
     if (key in storage) {
       object = storage[key];
 
-      console.log("object old amount: " + object.content[0].amnt);
+      console.log("object old amount: " + object.content[0].quantity);
       console.log("object units: " + object.unit);
 
-      let newAmnt = object.content[0].amnt - amount;
+      let sum = findTotalx(object);
+      let newAmnt = sum - amount;
+      console.log("TEST 1" + sum);
+      console.log(newAmnt);
 
       object.content = contentSort(object.content);
 
       if (newAmnt > 0) {
+        let currAmount = amount;
         alert("You have used " + amount + " units of " + key);
-        object.content[0].amnt = newAmnt;
+        while (currAmount > 0) {
+          let toBeReduced = parseInt(object.content[0].quantity);
+
+          if (toBeReduced > currAmount) {
+            console.log("Removed units: " + currAmount);
+            toBeReduced -= currAmount;
+            object.content[0].quantity = toBeReduced.toString();
+            currAmount = 0;
+          } else if (toBeReduced < currAmount) {
+            console.log("Removed units: " + toBeReduced);
+            object.content.shift();
+            currAmount -= toBeReduced;
+          } else {
+            console.log("Removed units: " + toBeReduced);
+            dobject.content.shift();
+            currAmount = 0;
+          }
+        }
         saveData("inventory", storage);
       } else if (newAmnt < 0) {
         alert("That amount is too high, you will run out of " + key);
       } else {
+        alert("You have run out of " + key);
         // let arr = object.content;
         // arr.splice(0, 1);
         // saveData("inventory", storage);
-        object.content[0].amnt = newAmnt;
-
-        if (object.content.length > 1) {
-          console.log("entersplice");
-          object.content.splice(0, 1);
-          console.log("splice works");
-        } else {
-          //delete entire object from list
-          console.log("all stock is 0");
-          storage.key = undefined;
-          console.log("delete whole obj");
-          saveData("inventory", storage);
-        }
+        delete storage.object;
+        saveData("inventory", storage);
       }
       logData(storage);
-      console.log("object new amount: " + object.content[0].amnt);
+      console.log("object new amount: " + object.content[0].quantity);
     } else {
       console.log(storage);
       console.log("object: " + object);

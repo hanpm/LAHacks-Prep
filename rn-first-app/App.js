@@ -16,7 +16,6 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import BasicSectionList from "./components/com_invent/invent";
 import HomeScreen from "./components/com_home/home";
 import AboutScreen from "./components/com_about/about";
-import { testSort } from "./components/com_input/inputSort";
 
 // adding the input and alert into InputScreen
 class InputScreen extends React.Component {
