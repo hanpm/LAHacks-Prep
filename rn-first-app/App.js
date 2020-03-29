@@ -59,17 +59,17 @@ export class InputScreen extends React.Component {
   }
 
   handleItem = (text) => {
-    this.setState({ item: text });
+    this.setState({ item: text })
   }
 
   handleAmount = (text) => {
-    this.setState({ amount: text });
+    this.setState({ amount: text })
   }
 
   message = (item, amount) => {
-    alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
-    console.log("msg function worked");
-    let newItem = new Item(item, "unit", amount);
+    alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory")
+    // console.log("msg function worked");
+    // let newItem = new Item(item, "unit", amount);
     // addItem(item, newItem);
   }
 
