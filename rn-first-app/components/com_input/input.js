@@ -1,22 +1,30 @@
 import input_style from "./input_style.js";
 import inputData from "./inputData.js";
+import { saveItem } from './inputData.js'
 import React, { useState, Component } from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 
 export class InputScreen extends React.Component {
+
   state = {
     item: '',
     amount: ''
   }
+
   handleItem = (text) => {
-    this.setState({ item: text })
+    this.setState({ item: text });
   }
+
   handleAmount = (text) => {
-    this.setState({ amount: text })
+    this.setState({ amount: text });
   }
-  message = (item, pass) => {
-    alert('item: ' + item + ',' + ' amount: ' + pass)
+
+  message = (item, amount) => {
+    alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
+    let newItem = new Item(item, "unit", amount);
+    saveItem(item, newItem);
   }
+
   render() {
     return (
       <View style={stylesOne.container}> 
@@ -48,60 +56,20 @@ export class InputScreen extends React.Component {
   }
 };
 
-
-let testArr = {
-
-  "tomato": {
-    unit: "whole tomatoes",
-
-    expiration: {
-      "date1": "30",
-      "Date2": "21"
-    }
-
+// example:
+// Item(eggs, eggs, 20);
+class Item {
+  constructor(item_type, item_unit, amount) {
+    this.item_type = item_type;
+    this.item_unit = item_unit;
+    this.amount = amount;
   }
-};
+}
 
-saveItem(eggs, 20);
+export {newItem};
+// export default InputPage;
 
-function saveItem(item_type, item_unit, amount){
 
-  var newItem = {
-    unit: item_unit, //units: eggs
-    amnt: amount //amount: 20
-  };
-
-  testArr[item_type] = newItem;
-
-};
-
-export default InputPage;
-
-// export default function App() {
-//   const [outputText, setOutputText] = useState("Old Message");
-//   const [value, onChangeText] = React.useState('Useless Placeholder');
-
-//   return (
-//     <View style={styles.container}>
-//       <Text>Item: </Text>
-//       <TextInput
-//       style={{ height: 40, borderColor: 'gray', borderWidth: 2 }}
-//       onChangeText={text => onChangeText(text)}
-//       value={value}
-//     />
-
-//     <Button
-//         title="Add"
-//         onPress={() => setOutputText("the text changed!")}
-//       />
-
-//       <Text>{outputText}</Text>
-      
-//     </View>
-//   );
-// }
-
-// this is the styling for the input page
 const stylesOne = StyleSheet.create({
   container: {
     marginTop: 250,
