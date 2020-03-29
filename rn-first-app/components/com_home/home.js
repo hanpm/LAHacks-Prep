@@ -92,7 +92,7 @@ const stylesHome = StyleSheet.create({
     marginTop: -35,
     // borderColor: 'blue',
     // borderWidth: 1,
-    fontSize: 45,
+    fontSize: 25,
     color: "#6948f4",
     textAlign: "center",
     fontWeight: "bold"
@@ -104,7 +104,7 @@ const stylesHome = StyleSheet.create({
     // padding: 50,
     marginBottom: 10,
     width: "200%",
-    fontSize: 25,
+    fontSize: 18,
     color: "#6948f4",
     textAlign: "center",
     fontWeight: "bold"
@@ -115,7 +115,7 @@ const stylesHome = StyleSheet.create({
     padding: 7,
     marginBottom: 5,
     width: "120%",
-    fontSize: 25,
+    fontSize: 17,
     color: "#6948f4",
     textAlign: "center",
     borderColor: "#6948f4",

@@ -11,6 +11,8 @@ export const addItem = async (
 ) => {
   console.log("addItem function worked");
 
+  AsyncStorage.clear();
+
   let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
   let storage = JSON.parse(value);
 
@@ -33,7 +35,7 @@ export const addItem = async (
         }
       ]
     };
-    storage[item_type] = newItem;
+      [item_type] = newItem;
   }
 
   saveData("inventory", storage);
