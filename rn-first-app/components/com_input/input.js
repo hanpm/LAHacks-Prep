@@ -1,84 +1,106 @@
 import input_style from "./input_style.js";
-import inputData from "./inputData.js";
-// import { saveItem } from './inputData.js'
 import React, { useState, Component } from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 
-export class InputScreen extends React.Component {
+export class InputPage extends Component{
+    render(){
+        return(
+          <View style = {styles.container}>
+            <View style = {styles.textfields}>
 
-  state = {
-    item: '',
-    amount: ''
-  }
+              <TextInput style = {styles.input}
+                placeholder = "Item"
+                keyboardType = "default"
+                autoCapitalize = "none"
+                autoCorrect = {false}
+              />
 
-  handleItem = (text) => {
-    this.setState({ item: text });
-  }
+              <TextInput style = {styles.input}
+                placeholder = "Units (lbs, ml, piece)"
+                keyboardType = "email-default"
+                autoCapitalize = "none"
+                autoCorrect = {false}
+              />
 
-  handleAmount = (text) => {
-    this.setState({ amount: text });
-  }
+              <TextInput style = {styles.input}
+                placeholder = "Units (lbs, ml, piece)"
+                keyboardType = "email-default"
+                autoCapitalize = "none"
+                autoCorrect = {false}
+              />
 
-  message = (item, amount) => {
-    alert('item: ' + item + ',' + ' amount: ' + amount + " has been added to inventory");
-    let newItem = new Item(item, "unit", amount);
-    // saveItem(item, newItem);
-  }
+              <Button 
+                title = "Add Item"
+                color = "#1abc9c"
+                onPress = {() => this.props.navigation.navigate('Register')}
+              />
 
-  render() {
-    return (
-      <View style={stylesOne.container}> 
-        {/* <Text style = {stylesOne.headerInputText}>Input Inventory</Text> */}
-        <TextInput style = {stylesOne.input}
-              //  underlineColorAndroid = "transparent"
-            
-               placeholder = "  Item"
-               placeholderTextColor = "#2163f6"
-               autoCapitalize = "none"
-               onChangeText = {this.handleItem}/>
-            
-            <TextInput style = {stylesOne.input}
-              //  underlineColorAndroid = "transparent"
-               placeholder = "  Amount"
-               placeholderTextColor = "#2163f6"
-               autoCapitalize = "none"
-               onChangeText = {this.handleAmount}/>
-            
-            <TouchableOpacity
-               style = {stylesOne.submitButton}
-               onPress = {
-                  () => this.message(this.state.item, this.state.amount)
-               }>
-               <Text style = {stylesOne.submitButtonText}> Submit </Text>
-            </TouchableOpacity>
-      </View>
-    )
-  }
-};
+            </View>
+          </View>
+        )
+    }
+}
 
+export default InputPage;
 
+export default function App() {
+  const [outputText, setOutputText] = useState("Old Message");
+  const [value, onChangeText] = React.useState('Useless Placeholder');
 
-const stylesOne = StyleSheet.create({
+  return (
+    <View style={styles.container}>
+      <Text>Item: </Text>
+      <TextInput
+      style={{ height: 40, borderColor: 'gray', borderWidth: 2 }}
+      onChangeText={text => onChangeText(text)}
+      value={value}
+    />
+
+    <Button
+        title="Add"
+        onPress={() => setOutputText("the text changed!")}
+      />
+
+      <Text>{outputText}</Text>
+      
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+
   container: {
-    marginTop: 250,
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    padding: 20,
+    backgroundColor: "blue",
+    alignItems: "stretch",
+    justifyContent: "center"
   },
+
   input: {
-     margin: 15,
-     height: 40,
-     borderColor: '#2163f6',
-     borderWidth: 1
+    paddingLeft: 20,
+    borderRadius: 50,
+    fontSize: 20,
+    height: 50,
+    fontSize: 25,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    marginBottom: 20,
+    color: "#34495e"
   },
-  submitButton: {
-     backgroundColor: '#2163f6',
-     padding: 10,
-     margin: 15,
-     height: 40,
+
+  buttoncontainer: {
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: '#1abc9c',
+    paddingVertical: 10,
+    justifyContent: 'center'
   },
-  submitButtonText:{
-     color: 'white'
-  },
+
+  buttontext: {
+    textAlign: 'center',
+    color: '#ecf0f1',
+    fontSize: 20
+  }
 
 });
