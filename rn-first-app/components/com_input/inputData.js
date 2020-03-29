@@ -31,8 +31,9 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
 
     items_list[item_type] = newItem;
 
-//   saveData("items list", items_list);
-  logData();  
+    console.log("before save data");
+    saveData("items list", items_list);
+    logData();  
 };
 
 
@@ -61,6 +62,7 @@ const logData = () => {
 };
 
  const saveData = async (item_name, object) => {
+    console.log("big brain");
     try{
         console.log("save data function");
       await AsyncStorage.setItem(item_name, object);
