@@ -63,7 +63,6 @@ class InputScreen extends React.Component {
     );
     let date = month + "/" + day + "/" + year;
     addItem(item, "units", amount, date);
-    testSort();
   };
 
   render() {

@@ -3,6 +3,7 @@ import { SectionList, Text, View, Platform } from "react-native";
 import { storeAll, findTotaly, findTotalr } from "./inventDataReader";
 
 //subbars under the headers
+
 class SectionListItem extends Component {
   render() {
     return (
@@ -10,7 +11,9 @@ class SectionListItem extends Component {
         style={{
           flex: 1,
           flexDirection: "column",
-          backgroundColor: "rgb(98, 197, 184)"
+          backgroundColor: "rgb(98, 197, 184)",
+          marginRight: 10,
+          marginLeft: 10
         }}
       >
         <Text
@@ -52,17 +55,26 @@ class SectionListItem extends Component {
 class SectionHeader extends Component {
   render() {
     return (
+      // <View>
+      //   style={{
+
+      //   }}
+      // </View>
       <View
         style={{
           flex: 1,
-          backgroundColor: "rgb(77,120, 140)"
+          marginRight: 10,
+          marginLeft: 10,
+          borderColor: "#2c6d6a",
+          borderWidth: 3,
+          backgroundColor: "white"
         }}
       >
         <Text
           style={{
             fontSize: 16,
             fontWeight: "bold",
-            color: "white",
+            color: "#2c6d6a",
             margin: 20
           }}
         >
@@ -78,15 +90,22 @@ export default class BasicSectionList extends Component {
 
     this.state = {
       loading: "initial",
-      data: ""
+      data: "",
+      refreshing: false
     };
   }
-  
+  /*
+  forceRemount = () => {
+    this.setState(({ uniqueValue }) => ({
+      uniqueValue: uniqueValue + 1
+    }));
+  };*/
+
   loadData() {
     var promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(storeAll());
-      }, 5000);
+      }, 1000);
     });
 
     return promise;
@@ -102,6 +121,16 @@ export default class BasicSectionList extends Component {
       console.log(this.state.data);
     });
   }
+
+  handleRefresh = () => {
+    this.loadData().then(data => {
+      this.setState({
+        data: data
+      });
+      console.log(this.state.data);
+    });
+    //this.setState({ data: storeAll() });
+  };
 
   render() {
     if (this.state.loading === "initial") {
@@ -129,8 +158,20 @@ export default class BasicSectionList extends Component {
           }}
           sections={this.state.data}
           keyExtractor={(item, index) => item.expiration}
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}
         ></SectionList>
       </View>
     );
   }
 }
+
+// const styles = StyleSheet.create({
+//   containerOne: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     borderColor: 'blue',
+//     borderWidth: 2,
+//   },
+// });

@@ -92,7 +92,7 @@ export function findTotalr(root) {
 
 //takes all the values from storage and stores it into a sectionlist friendly data structure
 export function storeAll() {
-  loadTest();
+  //loadTest();
 
   console.log("Pulling storage into list");
   finish = async () => {

@@ -1,6 +1,7 @@
 import input from "./input.js";
 import { Text, AsyncStorage } from "react-native";
 import React, { Component } from "react";
+import contentSort from "./inputSort";
 
 export const addItem = async (
   item_type,
@@ -13,19 +14,27 @@ export const addItem = async (
   let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
   let storage = JSON.parse(value);
 
-  var newItem = {
-    unit: item_unit, //units: eggs
-    content: [
-      {
-        expiration: expiration_date,
-        amnt: amount //amount: 20
-      }
-    ]
-  };
+  if (item_type in storage) {
+    let obj = storage[item_type];
 
-  storage[item_type] = newItem;
+    var contentItem = {
+      expiration: expiration_date,
+      amnt: amount
+    };
 
-  console.log("before save data");
+    obj.content.push(contentItem);
+  } else {
+    var newItem = {
+      unit: item_unit, //units: eggs
+      content: [
+        {
+          expiration: expiration_date,
+          amnt: amount //amount: 20
+        }
+      ]
+    };
+    storage[item_type] = newItem;
+  }
 
   saveData("inventory", storage);
 
@@ -43,17 +52,40 @@ export const useAmount = async (key, amount) => {
 
     if (key in storage) {
       object = storage[key];
-      alert("You have used " + key + " units of " + amount);
+
       console.log("object old amount: " + object.content[0].amnt);
       console.log("object units: " + object.unit);
 
       let newAmnt = object.content[0].amnt - amount;
-      object.content[0].amnt = newAmnt;
 
-      console.log("object new amount: " + object.content[0].amnt);
+      object.content = contentSort(object.content);
 
-      saveData("inventory", storage);
+      if (newAmnt > 0) {
+        alert("You have used " + amount + " units of " + key);
+        object.content[0].amnt = newAmnt;
+        saveData("inventory", storage);
+      } else if (newAmnt < 0) {
+        alert("That amount is too high, you will run out of " + key);
+      } else {
+        // let arr = object.content;
+        // arr.splice(0, 1);
+        // saveData("inventory", storage);
+        object.content[0].amnt = newAmnt;
+
+        if (object.content.length > 1) {
+          console.log("entersplice");
+          object.content.splice(0, 1);
+          console.log("splice works");
+        } else {
+          //delete entire object from list
+          console.log("all stock is 0");
+          storage.key = undefined;
+          console.log("delete whole obj");
+          saveData("inventory", storage);
+        }
+      }
       logData(storage);
+      console.log("object new amount: " + object.content[0].amnt);
     } else {
       console.log(storage);
       console.log("object: " + object);
@@ -65,12 +97,28 @@ export const useAmount = async (key, amount) => {
   }
 };
 
+// const deleteStock = (object, list, target) =>{
+
+//     let arr = object.content;
+//     if(arr.length > 1){
+//         console.log("entersplice");
+//         arr.splice(0,1);
+//         console.log("splice works");
+//     }
+//     else{ //delete entire object from list
+//         console.log("all stock is 0");
+//         object.target = undefined;
+//         console.log("delete whole obj");
+//     }
+//     logData(list);
+//     // saveData("inventory", list);
+// };
+
 const logData = list => {
   for (var key in list) {
     // check if the property/key is defined in the object itself, not in parent
     if (list.hasOwnProperty(key)) {
       console.log(key, list[key]);
-      console.log("Log Data function");
     } else {
       console.log("no key");
     }
@@ -78,7 +126,6 @@ const logData = list => {
 };
 
 const saveData = async (item_name, object) => {
-  console.log("big brain");
   try {
     console.log("save data function");
     await AsyncStorage.setItem(item_name, JSON.stringify(object));
