@@ -21,6 +21,6 @@ saveItem = async (item_name, object) => {
   try{
     await AsyncStorage.setItem(item_name, object);
   } catch (error) {
-      console.log("end me ");
+      console.log("it didnt work u bitch ");
   }
 };
