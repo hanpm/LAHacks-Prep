@@ -43,20 +43,25 @@ export const useAmount = (item_type, amountUsed) => {
 
     let item = fetchItem(item_type);
 
-    // item.content[i].amount -= amountUsed;
+    // item.content[0].amnt -= amountUsed;
   
+    console.log("well");
     // items_list[item_type].content[i].amount = newAmount;
     
     // saveData("collections", items_list);
     
   };
 
-  export const itemExists = (item_type, amountUsed) => {
+  export const itemExists = (item_type) => {
     let item = fetchItem(item_type);
-    if(item != undefined){
+    if(item != null){
+        console.log("item exists");
         return true;
     }
-    else return false;
+    else {
+        console.log("item does not exist");
+        return false;
+    }
   };
   
 
@@ -87,11 +92,21 @@ const fetchItem = async (key) => {
     try{
         let value = await AsyncStorage.getItem("inventory"); //returns object consisting of all objects
         let storage = JSON.parse(value);
-        let object = storage[key];
+        let object;
         // let list = Object.values(storage);
         // let item = storage[target];
+
+        if(key in storage){
+            object = storage[key];
+        }
+        else{
+            object = null;
+        }
+
         console.log(storage);
-        console.log(object.amnt);
+        console.log("object: " + object);
+        console.log("object units: " + object.unit);
+
         return object;
     }catch(e){
         console.log(e);

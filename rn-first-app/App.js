@@ -41,10 +41,9 @@ class HomeScreen extends React.Component {
   }
 
   message = (subitem, subamount) => {
-    if (itemExists() == true){
+    if (itemExists(subitem) == true){
       alert('You have used ' + subamount + ' units of ' + subitem);
-      console.log("killme");
-      useAmount(subitem, subamount);
+      // useAmount(subitem, subamount);
     }
     else{
       alert(subitem + 'does not exist in the inventory.')
