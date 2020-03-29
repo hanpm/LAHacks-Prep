@@ -33,7 +33,7 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
 
     console.log("before save data");
     saveData("items list", items_list);
-    logData();  
+    testData("items_list");
 };
 
 
@@ -48,12 +48,12 @@ export const addItem = (item_type, item_unit, amount, expiration_date) => {
 //   };
   
 
-const logData = () => {
-    console.log("Log Data function");
-    for (var key in items_list) {
+const logData = (list) => {
+    for (var key in list) {
       // check if the property/key is defined in the object itself, not in parent
-      if (items_list.hasOwnProperty(key)) {           
-          console.log(key, items_list[key]);
+      if (list.hasOwnProperty(key)) {           
+          console.log(key, list[key]);
+          console.log("Log Data function");
       }
       else{
           console.log("no key");
@@ -65,8 +65,22 @@ const logData = () => {
     console.log("big brain");
     try{
         console.log("save data function");
-      await AsyncStorage.setItem(item_name, JSON.stringify(object));
+        await AsyncStorage.setItem(item_name, JSON.stringify(object));
     } catch (error) {
         console.log("savedata function didnt work u bitch ");
     }
 };
+
+const testData = async (item_name) => {
+    let value = await AsyncStorage.getItem(item_name);
+    let storage = JSON.parse(value);
+
+    if(value == null){
+        console.log("fuck this");
+    }
+    else{
+        console.log("idk");
+    }
+    
+    logData(storage);
+}
