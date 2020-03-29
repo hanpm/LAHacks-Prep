@@ -49,9 +49,6 @@ class HomeScreen extends React.Component {
     else{
       alert(subitem + 'does not exist in the inventory.')
     }
-
-    // alert('You have used ' + subamount + ' units of ' + subitem);
-    // useAmount(subitem, subamount);
   }
 
   render() {
