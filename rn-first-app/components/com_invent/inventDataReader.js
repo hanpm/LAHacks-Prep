@@ -112,18 +112,38 @@ export function storeAll() {
 
   console.log("Pulling storage into list");
   finish = async () => {
-    var data = [];
+    var rationData = [];
     store = async () => {
       try {
         console.log("Asynchronously accessing storage");
         let value = await AsyncStorage.getItem("inventory");
         let storage = JSON.parse(value);
-        for (i = 0; i < Object.keys(storage).length; i++) {
+        for (let i = 0; i < Object.values(storage).length; i++) {
           console.log("Loading " + Object.keys(storage)[i]);
-          data.push({
+          let item = Object.values(storage)[i];
+          let number = 0;
+          let data = [];
+          for (number = 0; number < item.content.length; number++) {
+            let contentDiv = item.content[number];
+            let expirationData = contentDiv.expiration;
+            let quantityData = contentDiv.quantity;
+            let unitData = item.unit;
+            let slot = {
+              expiration: expirationData,
+              quantity: quantityData,
+              unit: unitData
+            };
+            data.push(slot);
+          }
+          let slot2 = {
+            data: data,
+            title: Object.keys(storage)[i]
+          };
+          rationData.push(slot2);
+          /*data.push({
             data: Object.values(storage)[i],
             title: Object.keys(storage)[i]
-          });
+          });*/
         }
       } catch (error) {
         console.log(error);
@@ -132,7 +152,7 @@ export function storeAll() {
     await store();
     console.log("Data loaded for export");
     //console.log(data);
-    return data;
+    return rationData;
   };
   let done = finish();
   return done;

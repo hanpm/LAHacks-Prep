@@ -6,13 +6,14 @@ import {
   Text,
   View,
   Alert,
-  SafeAreaView,
   Platform
 } from "react-native";
+//import { listData } from "./inventFileData";
 import { storeAll } from "./inventDataReader";
-import listData from "./inventFileData";
 
-export class SectionListItem extends Component {
+var listData = [];
+
+class SectionListItem extends Component {
   render() {
     return (
       <View
@@ -31,17 +32,17 @@ export class SectionListItem extends Component {
             marginRight: 10
           }}
         >
-          {this.props.item.content.expiration}
+          {this.props.item.expiration}
         </Text>
         <Text
           style={{
             fontSize: 16,
             marginLeft: 20,
             marginRight: 10,
-            color: rgb(173, 252, 250)
+            color: "rgb(173, 252, 250)"
           }}
         >
-          {this.props.item.content.quantity}
+          {this.props.item.quantity}
         </Text>
         <View
           style={{
@@ -56,8 +57,7 @@ export class SectionListItem extends Component {
     );
   }
 }
-
-export class SectionHeader extends Component {
+class SectionHeader extends Component {
   render() {
     return (
       <View
@@ -71,8 +71,7 @@ export class SectionHeader extends Component {
             fontSize: 16,
             fontWeight: "bold",
             color: "white",
-            marginLeft: 20,
-            marginRight: 10
+            margin: 20
           }}
         >
           {this.props.section.title}
@@ -81,17 +80,57 @@ export class SectionHeader extends Component {
     );
   }
 }
+export default class BasicSectionList extends Component {
+  constructor(props) {
+    super();
 
-export default class InventSectionList extends Component {
-  /*async componentDidMount() {
-    listData = await storeAll();
-    console.log("List data loaded");
+    this.state = {
+      loading: "initial",
+      data: ""
+    };
+  }
+
+  loadData() {
+    var promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(storeAll());
+      }, 5000);
+    });
+
+    return promise;
+  }
+
+  componentDidMount() {
+    this.setState({ loading: "true" });
+    this.loadData().then(data => {
+      this.setState({
+        data: data,
+        loading: "false"
+      });
+      console.log(this.state.data);
+    });
+  }
+  /*
+  componentDidMount() {
+    listData = storeAll();
     console.log(listData);
-  }*/
-
+  }
+*/
   render() {
+    if (this.state.loading === "initial") {
+      console.log("Initializing");
+      return <Text h2>Intializing...</Text>;
+    }
+
+    if (this.state.loading === "true") {
+      console.log("Loading");
+      return <Text h2>Loading...</Text>;
+    }
+
+    console.log("Loaded");
+    console.log(this.state.data);
     return (
-      <SafeAreaView styles={{ flex: 1 }}>
+      <View style={{ flex: 1, marginTop: Platform.OS === "ios" ? 34 : 0 }}>
         <SectionList
           renderItem={({ item, index }) => {
             return (
@@ -101,10 +140,10 @@ export default class InventSectionList extends Component {
           renderSectionHeader={({ section }) => {
             return <SectionHeader section={section} />;
           }}
-          sections={listData}
-          keyExtractor={(item, index) => item.content.expiration}
+          sections={this.state.data}
+          keyExtractor={(item, index) => item.expiration}
         ></SectionList>
-      </SafeAreaView>
+      </View>
     );
   }
 }
